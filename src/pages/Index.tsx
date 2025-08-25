@@ -10,6 +10,9 @@ const Index = () => {
   const { state, dispatch } = useAppContext();
   const [showOnboarding, setShowOnboarding] = useState(!state.user);
 
+  // Debug log to ensure component is mounting
+  console.log('Index component rendering, user:', state.user, 'showOnboarding:', showOnboarding);
+
   const handleStoryComplete = async (storyData: Omit<StoryState, 'step'>) => {
     // Create mock user from story data
     const mockUser: User = {
@@ -30,10 +33,18 @@ const Index = () => {
   };
 
   if (showOnboarding) {
-    return <StoryWizard onComplete={handleStoryComplete} />;
+    return (
+      <div className="min-h-screen bg-gradient-hero">
+        <StoryWizard onComplete={handleStoryComplete} />
+      </div>
+    );
   }
 
-  return <AppLayout />;
+  return (
+    <div className="min-h-screen bg-background">
+      <AppLayout />
+    </div>
+  );
 };
 
 export default Index;
